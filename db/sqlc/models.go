@@ -9,12 +9,12 @@ import (
 )
 
 type Geolocations struct {
-	ID          int64          `json:"id"`
-	CountryCode sql.NullString `json:"country_code"`
-	CityName    sql.NullString `json:"city_name"`
-	IpAddress   sql.NullString `json:"ip_address"`
-	Latitude    sql.NullString `json:"latitude"`
-	Longitude   sql.NullString `json:"longitude"`
-	Mystery     sql.NullString `json:"mystery"`
-	CreatedAt   sql.NullTime   `json:"created_at"`
+	ID          int64        `json:"id"`
+	CountryCode string       `json:"country_code"`
+	CityName    string       `json:"city_name"`
+	IpAddress   string       `json:"ip_address"`
+	Latitude    string       `json:"latitude"`
+	Longitude   string       `json:"longitude"`
+	Mystery     string       `json:"mystery"`
+	CreatedAt   sql.NullTime `json:"created_at"`
 }

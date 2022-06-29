@@ -1,11 +1,11 @@
 CREATE TABLE "geolocations" (
                                 "id" bigserial PRIMARY KEY,
-                                "country_code" varchar,
-                                "city_name" varchar,
-                                "ip_address" varchar,
-                                "latitude" varchar,
-                                "longitude" varchar,
-                                "mystery" varchar,
+                                "country_code" varchar NOT NULL ,
+                                "city_name" varchar NOT NULL ,
+                                "ip_address" varchar NOT NULL ,
+                                "latitude" varchar NOT NULL ,
+                                "longitude" varchar NOT NULL ,
+                                "mystery" varchar NOT NULL ,
                                 "created_at" timestamptz DEFAULT (now())
 );
 

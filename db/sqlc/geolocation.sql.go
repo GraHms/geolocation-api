@@ -7,7 +7,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createGeolocation = `-- name: CreateGeolocation :one
@@ -20,12 +19,12 @@ RETURNING id, country_code, city_name, ip_address, latitude, longitude, mystery,
 `
 
 type CreateGeolocationParams struct {
-	CountryCode sql.NullString `json:"country_code"`
-	CityName    sql.NullString `json:"city_name"`
-	IpAddress   sql.NullString `json:"ip_address"`
-	Latitude    sql.NullString `json:"latitude"`
-	Longitude   sql.NullString `json:"longitude"`
-	Mystery     sql.NullString `json:"mystery"`
+	CountryCode string `json:"country_code"`
+	CityName    string `json:"city_name"`
+	IpAddress   string `json:"ip_address"`
+	Latitude    string `json:"latitude"`
+	Longitude   string `json:"longitude"`
+	Mystery     string `json:"mystery"`
 }
 
 func (q *Queries) CreateGeolocation(ctx context.Context, arg CreateGeolocationParams) (Geolocations, error) {
@@ -56,7 +55,7 @@ SELECT id, country_code, city_name, ip_address, latitude, longitude, mystery, cr
 WHERE ip_address = $1 LIMIT 1
 `
 
-func (q *Queries) GetGeolocation(ctx context.Context, ipAddress sql.NullString) (Geolocations, error) {
+func (q *Queries) GetGeolocation(ctx context.Context, ipAddress string) (Geolocations, error) {
 	row := q.db.QueryRowContext(ctx, getGeolocation, ipAddress)
 	var i Geolocations
 	err := row.Scan(
