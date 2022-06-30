@@ -3,7 +3,7 @@ package api
 import "github.com/gin-gonic/gin"
 
 type requestParams struct {
-	IP string `json:"ip" binding:"required"`
+	IP string `uri:"ip" binding:"required"`
 }
 
 func (server *Server) getGeolocationByIP(ctx *gin.Context) {
