@@ -2,26 +2,25 @@ package main
 
 import (
 	"database/sql"
-	"github.com/grahms/geolocation-service/api"
-	db "github.com/grahms/geolocation-service/db/sqlc"
+	"github.com/grahms/geolocationservice/api"
+	db "github.com/grahms/geolocationservice/db/sqlc"
+	"github.com/grahms/geolocationservice/util"
 	_ "github.com/lib/pq"
 	"log"
 )
 
-const (
-	DBDriver   = "postgres"
-	DBSource   = "postgresql://postgres:west04@localhost:5432/geoloationsdb?sslmode=disable"
-	serverAddr = "0.0.0.0:8080"
-)
-
 func main() {
-	conn, err := sql.Open(DBDriver, DBSource)
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("Cannot read configurations", err)
+	}
+	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("Cannot connect to database")
 	}
-	store := db.New(conn)
+	store := db.NewStore(conn)
 	server := api.NewServer(store)
-	err = server.Start(serverAddr)
+	err = server.Start(config.ServerAddr)
 	if err != nil {
 		log.Fatal("cannot start server", err)
 	}

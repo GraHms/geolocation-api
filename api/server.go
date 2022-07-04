@@ -2,15 +2,15 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	db "github.com/grahms/geolocation-service/db/sqlc"
+	db "github.com/grahms/geolocationservice/db/sqlc"
 )
 
 type Server struct {
-	store  *db.Queries
+	store  db.Store
 	router *gin.Engine
 }
 
-func NewServer(store *db.Queries) *Server {
+func NewServer(store db.Store) *Server {
 	server := &Server{store: store}
 	router := gin.Default()
 	router.GET("geolocations/:ip", server.getGeolocationByIP)

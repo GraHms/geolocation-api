@@ -14,6 +14,7 @@ func createRandomGeolocation(t *testing.T) Geolocations {
 		Latitude:    "1203",
 		IpAddress:   "1203",
 	}
+
 	geoLocation, err := testQueries.CreateGeolocation(context.Background(), args)
 	require.NoError(t, err)
 	require.NotEmpty(t, geoLocation)
@@ -29,6 +30,7 @@ func TestCreateGeolocation(t *testing.T) {
 }
 
 func TestGetGeolocation(t *testing.T) {
+
 	args := createRandomGeolocation(t)
 	geoLocation, err := testQueries.GetGeolocation(context.Background(), args.IpAddress)
 	require.NoError(t, err)

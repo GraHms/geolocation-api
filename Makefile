@@ -16,5 +16,9 @@ sqlc:
 test:
 	go test -v -cover ./...
 
+mockdb:
+	mockgen -package mockdb
 
-.PHONY: createdb dropdb postgres migrate sqlc test
+
+
+.PHONY: createdb dropdb postgres migrate sqlc test mockdb
