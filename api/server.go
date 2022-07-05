@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/gin-gonic/gin"
 	db "github.com/grahms/geolocationservice/db/sqlc"
+	"github.com/penglongli/gin-metrics/ginmetrics"
 )
 
 type Server struct {
@@ -13,6 +14,12 @@ type Server struct {
 func NewServer(store db.Store) *Server {
 	server := &Server{store: store}
 	router := gin.Default()
+	// get global Monitor object
+	m := ginmetrics.GetMonitor()
+	//set metric path
+	m.SetMetricPath("/metrics")
+	m.Use(router)
+	setGauge()
 	router.GET("geolocations/:ip", server.getGeolocationByIP)
 	server.router = router
 	return server
