@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gocarina/gocsv"
 	"github.com/grahms/geolocationservice/util"
+	"github.com/penglongli/gin-metrics/ginmetrics"
 	"os"
 	"regexp"
 )
@@ -96,15 +97,17 @@ func (g *GeoCSV) ValidateRow(row *GeoCSV) bool {
 	mapRow[util.CITY] = g.isValidCityName(&row.City)
 	mapRow[util.COORDS] = g.isValidCoordinate(&row.Latitude, &row.Longitude)
 
-	for _, v := range mapRow {
+	for k, v := range mapRow {
 		if v == false {
 			print(util.ColorRed, "invalid row: ")
+			_ = ginmetrics.GetMonitor().GetMetric("csv_rows").Inc([]string{k, "INVALID"})
 			fmt.Printf("%v", row)
 			println()
 			return false
 		}
 
 	}
+	_ = ginmetrics.GetMonitor().GetMetric("csv_rows").Inc([]string{"VALID"})
 	print(util.ColorGreen, "valid row: ")
 	fmt.Printf("%v", row)
 	println()
