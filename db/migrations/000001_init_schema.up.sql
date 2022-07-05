@@ -1,8 +1,8 @@
 CREATE TABLE "geolocations" (
                                 "id" bigserial PRIMARY KEY,
                                 "country_code" varchar NOT NULL ,
-                                "city_name" varchar NOT NULL ,
-                                "ip_address" varchar NOT NULL ,
+                                "city_name" varchar NOT NULL UNIQUE ,
+                                "ip_address" varchar NOT NULL UNIQUE ,
                                 "latitude" varchar NOT NULL ,
                                 "longitude" varchar NOT NULL ,
                                 "mystery" varchar NOT NULL ,

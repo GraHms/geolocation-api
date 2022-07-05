@@ -2,17 +2,18 @@ package db
 
 import (
 	"context"
+	"github.com/grahms/geolocationservice/util"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
 
 func createRandomGeolocation(t *testing.T) Geolocations {
 	args := CreateGeolocationParams{
-		CountryCode: "MZ",
-		CityName:    "ALASKA",
-		Longitude:   "1203",
-		Latitude:    "1203",
-		IpAddress:   "1203",
+		CountryCode: util.RandStringBytes(2),
+		CityName:    util.RandStringBytes(5),
+		Longitude:   util.RandStringBytes(10),
+		Latitude:    util.RandStringBytes(10),
+		IpAddress:   util.RandStringBytes(10),
 	}
 
 	geoLocation, err := testQueries.CreateGeolocation(context.Background(), args)
