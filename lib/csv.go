@@ -43,7 +43,9 @@ func (g *GeoCSV) Parse(filePath string, callback func(loc GeoCSV)) {
 		select {
 		// panic if chanel returns an error
 		case err := <-cerr:
-			panic(err)
+			//panic(err)
+			print(err)
+			return
 		default:
 			loc := <-locations
 			// locations will be loaded to callback function

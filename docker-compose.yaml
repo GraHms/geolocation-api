@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  app:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: .
+    environment:
+      API_SERVER_ADDR: ":8080"
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=west04
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
